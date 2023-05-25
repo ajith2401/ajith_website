@@ -1,0 +1,79 @@
+// const App = () => {
+//   const [currentPage, setCurrentPage] = useState('home');
+//   const handleNavigation = (page) => {
+//     setCurrentPage(page);
+//   };
+
+//   const openNav = () => {
+//     document.getElementById("myNav").style.width = "100%";
+//   };
+
+//   const closeNav = () => {
+//     document.getElementById("myNav").style.width = "0%";
+//   };
+
+//   const renderPage = () => {
+//     switch (currentPage) {
+//       case 'home':
+//         return <MyNav />;
+//       case 'skills':
+//         return <Skills />;
+//       case 'experience':
+//         return <Experience />;
+//       case 'writing':
+//         return <Writing />;
+//       case 'contact':
+//         return <Contact />;
+//       default:
+//         return null;
+//     }
+//   };
+
+//   return (
+//     <div id='Home'>
+//       <div id="myNav" className="overlay">
+//         <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
+//         <div className="overlay-content">
+//           <a href="#" onClick={() => handleNavigation('home')}>About</a>
+//           <a href="#" onClick={() => handleNavigation('skills')}>Skills</a>
+//           <a href="#" onClick={() => handleNavigation('experience')}>Experience</a>
+//           <a href="#" onClick={() => handleNavigation('writing')}>Writing</a>
+//           <a href="#" onClick={() => handleNavigation('contact')}>Contact</a>
+//         </div>
+//       </div>
+//       <div id='nav-icon'>
+//         <span style={{ fontSize: '30px', cursor: 'pointer' }} onClick={openNav}>&#9776;</span>
+//         <span>Hire Me</span>
+//       </div>
+//       <div id='name_img'>
+//         <div>
+//           <h1 id='name'>Hi, my name is <b>Ajithkumar</b></h1>
+//           <div id='about-content'>
+//             <p>Experienced Backend developer and GovTechThon award holder seeking a full-stack developer role in a dynamic work culture. I am looking forward to working on diverse projects that provide opportunities for my professional growth and foster collaboration with multidisciplinary teams.</p>
+//           </div>
+//         </div>
+//         <img id='image_aji' src={myImage} alt="Description of the image" />
+//       </div>
+//       <div>
+//         <div className='content'>
+//           <h1><a href='https://wa.me/9445879944'>SEVAI BOT</a></h1>
+//           <p>Winner of GovTechThon, initiated by the Tirunelveli District Administration to encourage innovations in technology where more than 520 teams participated. Our Virtual Assistant Chatbot for Government Schemes won a 1-lakh cash prize and was bootcamped to become a full-time working product. The BOT was successfully launched by Honourable Tamil Nadu IT Minister.</p>
+//           <p>News Articles: The Hindu, The New Indian Express</p>
+//           <p>Tech Stack: JavaScript, Node.js, JSON</p>
+//         </div>
+//         <div className='content'>
+//           <h1><a href='https://t.me/Kural_book _bot'>KURAL bot</a></h1>
+//           <p>Successfully built a Telegram and WhatsApp chatbot which gives Thirukkural and its context when the user enters a random number within 1330. It will suggest books based on the user's selected categories like short stories, novels, etc.</p>
+//           <p>Tech Stack: Python, Flask, Google Dialogflow, JSON</p>
+//         </div>
+//         <div className='content'>
+//           <h1><a href='/'>AUTHOR</a></h1>
+//           <p>Published four poetry books under the themes of feminism, social justice, and love.</p>
+//         </div>
+//       </div>
+//       {renderPage()}
+//     </div>
+//   );
+// };
+
+// export default App;
