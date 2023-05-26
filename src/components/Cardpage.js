@@ -40,9 +40,9 @@ const WritingDetailsComponent = ({ writings }) => {
       writingId: writing.id,
       writingTitle: writing.title,
     };
-
+  
     // Make an API request to the server-side endpoint
-    axios.post('/api/comments', newComment)
+    axios.post('https://ajith-website.vercel.app/api/comments', newComment)
       .then((response) => {
         console.log('Comment stored:', response.data);
         setName('');
