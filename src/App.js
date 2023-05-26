@@ -3,27 +3,28 @@ import MyNav from './components/Navbar';
 import WritingsComponent from './components/Writing';
 import Experience from './components/Experience';
 import PortfolioSection from './components/Portfolio';
-// import myImage from '../src/aj1.png';
+import WritingDetailsComponent from './components/Cardpage'; // Import the WritingDetailsComponent
 import ChatWidget from "./components/Chat.js"
 import React, { useState } from 'react';
 import writingsData from './writings_ajith.json';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const writings = writingsData;
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const openNav = () => {
-        document.getElementById("myNav").style.width = "100%";
-      };
-    
-      const closeNav = () => {
-        document.getElementById("myNav").style.width = "0%";
-      };
+    document.getElementById("myNav").style.width = "100%";
+  };
+
+  const closeNav = () => {
+    document.getElementById("myNav").style.width = "0%";
+  };
 
   const handleNavigation = (page) => {
     setCurrentPage(page);
   };
+
   const handleResumeClick = () => {
     // Trigger resume download using the retrieved resume URL
     const link = document.createElement("a");
@@ -35,9 +36,6 @@ const App = () => {
     document.body.removeChild(link);
   };
 
-  
-
-
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -45,10 +43,9 @@ const App = () => {
       case 'experience':
         return <Experience />;
       case 'writing':
-        return   <WritingsComponent writings={writings} />;
+        return <WritingsComponent writings={writings} />;
       case 'PortfolioSection':
-          return <PortfolioSection/>
-        // PortfolioSection
+        return <PortfolioSection />;
       default:
         return <MyNav />;
     }
@@ -56,52 +53,66 @@ const App = () => {
 
   return (
     <div>
-       <div id="myNav" className="overlay footer-basic_1">
-          <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>  
+      <div id="myNav" className="overlay footer-basic_1">
+        <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
         <div className="overlay-content">
-          <a href="#" onClick={() => handleNavigation('home',closeNav()) }>Home</a>
-          <a href="#" onClick={() => handleNavigation('PortfolioSection',closeNav())}>Projects</a>
-          <a href="#" onClick={() => handleNavigation('experience',closeNav())}>Experience</a>
-          <a href="#" onClick={() => handleNavigation('writing',closeNav())}>Writing</a>
-         
+          <a href="/" onClick={() => handleNavigation('home', closeNav())}>Home</a>
+          <a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Projects</a>
+          <a href="/experience" onClick={() => handleNavigation('experience', closeNav())}>Experience</a>
+          <a href="/writing" onClick={() => handleNavigation('writing', closeNav())}>Writing</a>
         </div>
         <div className="social">
-            <a href="mailto:ajith24ram@gmailcom" target="_blank"><i class="icon ion-social-google"></i></a>
-            <a href="https://www.linkedin.com/in/ajithkumar-rangappan-a6531a232" target='_blank'><i class="icon ion-social-linkedin"></i></a>
-            <a href="https://github.com/ajith2401" target="_blank"><i class="icon ion-social-github"></i></a>
-            <a href="#"><i class="icon ion-social-instagram"></i></a>
-            <a href="https://www.facebook.com/putinakkavi" target="_blank"><i class="icon ion-social-facebook"></i></a>
-
+          <a href="mailto:ajith24ram@gmailcom" target="_blank"><i className="icon ion-social-google"></i></a>
+          <a href="https://www.linkedin.com/in/ajithkumar-rangappan-a6531a232" target='_blank'><i className="icon ion-social-linkedin"></i></a>
+          <a href="https://github.com/ajith2401" target="_blank"><i className="icon ion-social-github"></i></a>
+          <a href="#"><i className="icon ion-social-instagram"></i></a>
+          <a href="https://www.facebook.com/putinakkavi" target="_blank"><i className="icon ion-social-facebook"></i></a>
         </div>
-
       </div>
       <div id='nav-icon'>
         <span style={{ fontSize: '30px', cursor: 'pointer' }} onClick={openNav}>&#9776;</span>
         <button onClick={handleResumeClick}>Resume</button>
       </div>
-    
-      {/* Render the current page */}
-      {renderPage()}
+
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <MyNav />
+          </Route>
+          <Route path="/experience">
+            <Experience />
+          </Route>
+          <Route exact path="/writing">
+            <WritingsComponent writings={writings} />
+          </Route>
+          <Route path="/writings/:writingId">
+          <WritingDetailsComponent writings={writings} />
+        </Route>
+          <Route path="/PortfolioSection">
+            <PortfolioSection />
+          </Route>
+        </Switch>
+      </Router>
+
       <div className="footer-basic">
-      <footer>
-        <div className="social">
-            <a href="mailto:ajith24ram@gmailcom" target="_blank"><i class="icon ion-social-google"></i></a>
-            <a href="https://www.linkedin.com/in/ajithkumar-rangappan-a6531a232" target='_blank'><i class="icon ion-social-linkedin"></i></a>
-            <a href="https://github.com/ajith2401" target="_blank"><i class="icon ion-social-github"></i></a>
-            <a href="#"><i class="icon ion-social-instagram"></i></a>
-            <a href="https://www.facebook.com/putinakkavi" target="_blank"><i class="icon ion-social-facebook"></i></a>
-        </div>
-        <ul className="list-inline">
-          <li className="list-inline-item" onClick={() => handleNavigation('home')}>Home</li>
-          <li className="list-inline-item" onClick={() => handleNavigation('PortfolioSection')}>Projects</li>
-          <li className="list-inline-item" onClick={() => handleNavigation('experience')}>Experience</li>
-          <li className="list-inline-item" onClick={() => handleNavigation('writing')}>Writing</li>
-         
-        </ul>
-        <p className="text-center">Company Name &copy; 2018</p>
-      </footer>
-    </div>
-    <ChatWidget/>
+        <footer>
+          <div className="social">
+            <a href="mailto:ajith24ram@gmailcom" target="_blank"><i className="icon ion-social-google"></i></a>
+            <a href="https://www.linkedin.com/in/ajithkumar-rangappan-a6531a232" target='_blank'><i className="icon ion-social-linkedin"></i></a>
+            <a href="https://github.com/ajith2401" target="_blank"><i className="icon ion-social-github"></i></a>
+            <a href="#"><i className="icon ion-social-instagram"></i></a>
+            <a href="https://www.facebook.com/putinakkavi" target="_blank"><i className="icon ion-social-facebook"></i></a>
+          </div>
+          <ul className="list-inline">
+          <li><a href="/" onClick={() => handleNavigation('home', closeNav())}>Home</a></li>
+          <li><a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Projects</a></li>
+          <li><a href="/experience" onClick={() => handleNavigation('experience', closeNav())}>Experience</a></li>
+          <li><a href="/writing" onClick={() => handleNavigation('writing', closeNav())}>Writing</a></li>
+          </ul>
+          <p className="text-center">Company Name &copy; 2018</p>
+        </footer>
+      </div>
+      <ChatWidget />
     </div>
   );
 };

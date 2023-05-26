@@ -1,26 +1,41 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import WritingDetailsComponent from './Cardpage';
 
 const WritingsComponent = ({ writings }) => {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [dateFilter, setDateFilter] = useState('');
-  const [showFullContent, setShowFullContent] = useState([]);
+  const [showFullContent, setShowFullContent] = useState(Array(writings.length).fill(false));
   const [visibleCards, setVisibleCards] = useState(24);
 
   // Filtered writings based on category and published date
-  const filteredWritings = writings.filter((writing) => {
-    if (categoryFilter && writing.category !== categoryFilter) {
-      return false;
-    }
+  const filteredWritings = writings
+    .filter((writing) => {
+      if (categoryFilter && writing.category !== categoryFilter) {
+        return false;
+      }
 
-    if (dateFilter && writing.published_date !== dateFilter) {
-      return false;
-    }
+      if (dateFilter) {
+        const filterDate = new Date(dateFilter);
+        const writingDate = new Date(writing.published_date);
+        if (
+          writingDate.getDate() !== filterDate.getDate() ||
+          writingDate.getMonth() !== filterDate.getMonth() ||
+          writingDate.getFullYear() !== filterDate.getFullYear()
+        ) {
+          return false;
+        }
+      }
 
-    return true;
-  });
+      return true;
+    })
+    .sort((a, b) => new Date(b.published_date) - new Date(a.published_date)); // Sort by latest published date
 
-  const toggleContent = (index) => {
+  const toggleContent = (writingId) => {
     setShowFullContent((prevState) => {
+      const index = filteredWritings.findIndex((writing) => writing.id === writingId);
+      if (index === -1) return prevState;
+
       const updatedState = [...prevState];
       updatedState[index] = !prevState[index];
       return updatedState;
@@ -33,6 +48,10 @@ const WritingsComponent = ({ writings }) => {
     const truncatedLines = lines.slice(0, maxLines);
     return truncatedLines.join('\n');
   };
+  const renderContent = (content) => {
+    const lines = content.split('\n');
+    return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
+  };
 
   const loadMore = () => {
     setVisibleCards((prevCount) => prevCount + 24);
@@ -44,10 +63,7 @@ const WritingsComponent = ({ writings }) => {
       <div>
         <label>
           Category:
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
+          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <option value="">All</option>
             <option value="short story">Short Story</option>
             <option value="poem">Poem</option>
@@ -69,23 +85,24 @@ const WritingsComponent = ({ writings }) => {
       </div>
       <hr />
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {filteredWritings.slice(0, visibleCards).map((writing, index) => (
-          <div className="col" key={index}>
+        {filteredWritings.slice(0, visibleCards).map((writing) => (
+          <div className="col" key={writing.id}>
             <div className="card h-100">
               <div className="card-body">
                 <h3 className="card-title">{writing.title}</h3>
                 <p className="card-text">
-                  {showFullContent[index]
-                    ? writing.content_body
+                  {showFullContent[writing.id]
+                    ? renderContent(writing.content_body)
                     : truncatedContent(writing.content_body)}
                 </p>
                 {writing.content_body.split('\n').length > 4 && (
-                  <button
+                  <Link
+                    to={`/writings/${writing.id}`}
                     className="btn btn-primary"
-                    onClick={() => toggleContent(index)}
+                    onClick={() => toggleContent(writing.id)}
                   >
-                    {showFullContent[index] ? 'Read Less' : 'Read More'}
-                  </button>
+                    {showFullContent[writing.id] ? 'Read Less' : 'Read More'}
+                  </Link>
                 )}
               </div>
               <img src={writing.image_src} alt={writing.title} className="card-img-top" />
