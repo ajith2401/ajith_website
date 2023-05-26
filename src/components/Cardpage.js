@@ -31,7 +31,13 @@ const WritingDetailsComponent = ({ writings }) => {
     setComment(event.target.value);
   };
 
-  const handleSubmitComment = () => {
+  const handleSubmitComment = (event) => {
+    event.preventDefault();
+  
+    if (!name || !mail || !comment) {
+      // Display an error message or perform some other action
+      return;
+    }
     const newComment = {
       name: name,
       mail_id: mail,
