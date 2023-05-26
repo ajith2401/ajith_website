@@ -22,12 +22,17 @@ function ChatWidget() {
   function getDate(date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();
-    let day = date.toLocaleDateString('en-US', {weekday: 'long'});
-    let month = date.toLocaleDateString('en-US', {month: 'long'});
-    let dayNum = date.getDate();
-    let year = date.getFullYear();
-    return `${day}, ${month} ${dayNum}, ${year} ${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    let amOrPm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert to 12-hour format
+  
+    // let day = date.toLocaleDateString('en-US', { weekday: 'long' });
+    // let month = date.toLocaleDateString('en-US', { month: 'long' });
+    // let dayNum = date.getDate();
+    // let year = date.getFullYear();
+  
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${amOrPm}`;
   }
+  
   
   function getBotResponse(event) {
     event.preventDefault(); // Prevents page refresh on form submit

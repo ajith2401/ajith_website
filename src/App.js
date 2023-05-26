@@ -1,12 +1,15 @@
 import './App.css';
 import MyNav from './components/Navbar';
-import Skills from './components/Skills';
-import Writing from './components/Writing';
+import WritingsComponent from './components/Writing';
 import Experience from './components/Experience';
 import PortfolioSection from './components/Portfolio';
 // import myImage from '../src/aj1.png';
 import ChatWidget from "./components/Chat.js"
 import React, { useState } from 'react';
+import writingsData from './writings_ajith.json';
+
+
+const writings = writingsData;
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -31,6 +34,10 @@ const App = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+  
+
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -38,7 +45,7 @@ const App = () => {
       case 'experience':
         return <Experience />;
       case 'writing':
-        return <Writing />;
+        return   <WritingsComponent writings={writings} />;
       case 'PortfolioSection':
           return <PortfolioSection/>
         // PortfolioSection

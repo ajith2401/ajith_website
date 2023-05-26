@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Courier New', monospace;
   padding: 20px;
@@ -102,14 +103,6 @@ body {
   padding: 10px;
 }
 
-
-
-#Skills {
-  min-height: 90vh;
-  background: #fff7f7;
-  padding: 10px;
-}
-
 #name {
   font-size: 100px;
 }
@@ -121,7 +114,7 @@ body {
 }
 
 #image_aji{
-  max-width: 100%;
+  max-width: 130%;
   height: auto;
 }
 
@@ -170,6 +163,13 @@ body {
   #name {
     font-size: 120px;
   }
+}
+
+
+#Skills {
+  min-height: 90vh;
+  background: #fff7f7;
+  padding: 10px;
 }
 
 .content {
@@ -249,6 +249,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: #bebebe;
 }
 
 .chat-header {
@@ -356,14 +357,24 @@ body {
 }
 
 .small-text {
-  font-size: 0.7rem;
-  background-color: #bebebe; /* default font size */
+  font-size: 0.4rem;
+   
+  /* default font size */
 }
+
+.bot-message .small-text{
+margin-left: 100px;
+}
+
+.user-message .small-text{
+  margin-left: 160px;
+  }
 
 /* adjust font size for smaller screens */
 @media only screen and (max-width: 768px) {
   .small-text {
     font-size: 0.3rem;
+    
   }
 }
 
@@ -374,7 +385,7 @@ body {
   margin-bottom: 10px;
   max-width: 80%;
   align-self: flex-end;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
 }
 
 .bot-message {
@@ -385,7 +396,8 @@ body {
   margin-bottom: 10px;
   max-width: 80%;
   align-self: flex-start;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
+  justify-content: space-between;
 }
 
 .section {
@@ -473,46 +485,6 @@ body {
 @media screen and (min-width: 768px) {
   .row-cols-lg-3 {
     flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 576px) {
-  #name {
-    font-size: 60px;
-  }
-}
-
-@media (min-width: 768px) {
-  #name {
-    font-size: 80px;
-  }
-}
-
-@media (min-width: 992px) {
-  #name {
-    font-size: 100px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #name {
-    font-size: 120px;
-  }
-}
-
-@media (max-width: 575px) {
-  #name_img {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #name {
-    font-size: 40px;
-    margin-top: 20px;
-  }
-
-  #image_aji {
-    max-width: 80%;
   }
 }
 
