@@ -1,0 +1,14 @@
+{
+    "headers": [
+      {
+        "source": "/api/comments",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
+    ]
+  }
+  
