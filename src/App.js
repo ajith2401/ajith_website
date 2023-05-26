@@ -57,7 +57,7 @@ const App = () => {
         <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
         <div className="overlay-content">
           <a href="/" onClick={() => handleNavigation('home', closeNav())}>Home</a>
-          <a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Projects</a>
+          <a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Works</a>
           <a href="/experience" onClick={() => handleNavigation('experience', closeNav())}>Experience</a>
           <a href="/writing" onClick={() => handleNavigation('writing', closeNav())}>Writing</a>
         </div>
@@ -105,7 +105,7 @@ const App = () => {
           </div>
           <ul className="list-inline">
           <li><a href="/" onClick={() => handleNavigation('home', closeNav())}>Home</a></li>
-          <li><a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Projects</a></li>
+          <li><a href="/PortfolioSection" onClick={() => handleNavigation('PortfolioSection', closeNav())}>Works</a></li>
           <li><a href="/experience" onClick={() => handleNavigation('experience', closeNav())}>Experience</a></li>
           <li><a href="/writing" onClick={() => handleNavigation('writing', closeNav())}>Writing</a></li>
           </ul>
