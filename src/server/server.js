@@ -1,11 +1,9 @@
-const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const fs = require('fs');
 
-const app = express();
+const app = require('express')();
 app.use(cors());
-const port = 3001;
 
 app.use(express.json());
 
@@ -45,6 +43,4 @@ app.post('/api/comments', (req, res) => {
   res.status(200).json({ message: 'Comment stored', comment: newComment });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
