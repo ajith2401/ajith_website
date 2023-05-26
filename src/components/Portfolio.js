@@ -64,7 +64,7 @@ const PortfolioSection = () => {
   return (
     <section id="portfolio">
     <div className="container mt-3">
-      <h1 className="text-center">Projects</h1>
+      <h1 className="text-center">Works</h1>
       <div className="row">
         {images.map((image, index) => (
           <div key={index} className="col-lg-6 mt-4 box-border" >
