@@ -42,9 +42,16 @@ const WritingDetailsComponent = ({ writings }) => {
     };
   
     // Make an API request to the server-side endpoint
-    axios.post('https://ajith-website.vercel.app/api/comments', newComment, {
-      method: 'POST',
-    });
+    axios.get('https://ajith-website.vercel.app/api/comments', newComment)
+      .then((response) => {
+        console.log('Comment stored:', response.data);
+        setName('');
+        setMail('');
+        setComment('');
+      })
+      .catch((error) => {
+        console.error('Error storing comment:', error);
+      });
   };
 
   return (
