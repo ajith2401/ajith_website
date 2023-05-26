@@ -42,7 +42,7 @@ const WritingDetailsComponent = ({ writings }) => {
     };
 
     // Make an API request to the server-side endpoint
-    axios.post('http://localhost:3001/api/comments', newComment)
+    axios.post('/api/comments', newComment)
       .then((response) => {
         console.log('Comment stored:', response.data);
         setName('');
