@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,6 +9,28 @@ const WritingDetailsComponent = ({ writings }) => {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Fetch comments from the API
+    const fetchComments = async () => {
+      try {
+        const response = await axios.post('https://kuralbot.pythonanywhere.com/api/get_comments', {
+          writingId: writingId,
+          writingTitle: writing.title
+        });
+        setComments(response.data);
+        setError('');
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+        setComments([]);
+        setError('Failed to fetch comments');
+      }
+    };
+
+    fetchComments();
+  }, [writingId, writing.title]);
 
   if (!writing) {
     return <div>Writing not found</div>;
@@ -33,7 +55,7 @@ const WritingDetailsComponent = ({ writings }) => {
 
   const handleSubmitComment = (event) => {
     event.preventDefault();
-  
+
     if (!name || !mail || !comment) {
       // Display an error message or perform some other action
       return;
@@ -46,14 +68,16 @@ const WritingDetailsComponent = ({ writings }) => {
       writingId: writing.id,
       writingTitle: writing.title,
     };
-  
-    // Make an API request to the server-side endpoint
+
+    // Make an API request to store the comment
     axios.post('https://kuralbot.pythonanywhere.com/comments', newComment)
       .then((response) => {
         console.log('Comment stored:', response.data);
         setName('');
         setMail('');
         setComment('');
+        // Fetch updated comments after successfully storing the new comment
+        fetchComments();
       })
       .catch((error) => {
         console.error('Error storing comment:', error);
@@ -101,6 +125,22 @@ const WritingDetailsComponent = ({ writings }) => {
         <div className="col-lg-3">
           <button className="btn btn-primary" onClick={handleSubmitComment}>Submit</button>
         </div>
+      </div>
+
+      <div className="comments-section">
+        <h2>Comments</h2>
+        {error && <div>{error}</div>}
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <div key={comment.id}>
+              <h4>{comment.name}</h4>
+              <p>{comment.content}</p>
+              <p>{comment.date}</p>
+            </div>
+          ))
+        ) : (
+          <div>No comments available</div>
+        )}
       </div>
 
       <Link to="/writing">Back to Writings</Link>
