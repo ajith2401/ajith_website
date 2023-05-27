@@ -18,6 +18,7 @@ const WritingDetailsComponent = ({ writings }) => {
         writingId: writingId,
         writingTitle: writing.title
       });
+      console.log(writing.title)
       setComments(response.data);
       console.log(response.data)
       setError('');
