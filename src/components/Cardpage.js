@@ -12,23 +12,22 @@ const WritingDetailsComponent = ({ writings }) => {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    // Fetch comments from the API
-    const fetchComments = async () => {
-      try {
-        const response = await axios.post('https://kuralbot.pythonanywhere.com/api/get_comments', {
-          writingId: writingId,
-          writingTitle: writing.title
-        });
-        setComments(response.data);
-        setError('');
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-        setComments([]);
-        setError('Failed to fetch comments');
-      }
-    };
+  const fetchComments = async () => {
+    try {
+      const response = await axios.post('https://kuralbot.pythonanywhere.com/api/get_comments', {
+        writingId: writingId,
+        writingTitle: writing.title
+      });
+      setComments(response.data);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      setComments([]);
+      setError('Failed to fetch comments');
+    }
+  };
 
+  useEffect(() => {
     fetchComments();
   }, [writingId, writing.title]);
 
