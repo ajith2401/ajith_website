@@ -1,10 +1,8 @@
 {
     "version": 2,
-    "routes": [
-      {
-        "src": "/api/comments",
-        "dest": "src/server/server.js"
-      }
+    "rewrites": [
+      { "source": "/api/.*", "destination": "/src/server/server.js" },
+      { "source": "/(.*)", "destination": "/$1" }
     ],
     "headers": [
       {
@@ -18,5 +16,4 @@
       }
     ]
   }
-  
   
