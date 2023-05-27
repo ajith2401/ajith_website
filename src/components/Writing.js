@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,6 +10,24 @@ const WritingsComponent = ({ writings }) => {
   const [searchText, setSearchText] = useState('');
   const [showFullContent, setShowFullContent] = useState(Array(writings.length).fill(false));
   const [visibleCards, setVisibleCards] = useState(24);
+  const [contentLanguage, setContentLanguage] = useState('english');
+  const [contentIndex, setContentIndex] = useState(0);
+
+  const content = [
+    {
+      english: "I am grateful for this page, which allows me to express myself freely. It is a platform for my creativity and imagination. I can express love,lust, child within, named and  nameless emotions as a writer,a creator without boundaries. I am thankful for the opportunity to use this page to express my individuality.please not to look for any qualities of an employee here.",
+      tamil: "இது தனி மனத சுதந்திரத்துக்கு உட்பட்ட பக்கம். அதாவது எனக்குள்ளிருக்கிற எழுத்தாளரின், படைப்பாளியின், குழந்தைமையின், காதலின், காமத்தின் மற்றும் பெயருள்ள பெயரற்ற எல்லா உணர்வுகளின் வெளிப்பாட்டு தளம் இது. எனவே, இங்கு ஒரு தொழிலாளிக்கான எதையும் தேடாதீர்கள்."
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setContentLanguage((prevLanguage) => (prevLanguage === 'english' ? 'tamil' : 'english'));
+      setContentIndex((prevIndex) => (prevIndex + 1) % content.length);
+    }, 5000); // Change language every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Filtered writings based on category, published date, and search text
   const filteredWritings = writings
@@ -76,6 +94,9 @@ const WritingsComponent = ({ writings }) => {
   return (
     <div className="intro text-center section-padding color-bg" id="about">
       <h2>Writings</h2>
+      <div className="disclaimer-content">
+        <p className="alert alert-info">{content[contentIndex][contentLanguage]}</p>
+      </div>
       <div className="filter-section">
         <div className="filter-item">
           <label>
