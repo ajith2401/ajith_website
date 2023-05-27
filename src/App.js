@@ -5,6 +5,7 @@ import MyNav from './components/Navbar';
 import WritingsComponent from './components/Writing';
 import Experience from './components/Experience';
 import PortfolioSection from './components/Portfolio';
+import writingsData from './writings_ajith.json';
 import WritingDetailsComponent from './components/Cardpage';
 import ChatWidget from './components/Chat.js';
 
