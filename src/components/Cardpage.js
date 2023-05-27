@@ -19,6 +19,7 @@ const WritingDetailsComponent = ({ writings }) => {
         writingTitle: writing.title
       });
       setComments(response.data);
+      console.log(response.data)
       setError('');
     } catch (error) {
       console.error('Error fetching comments:', error);
