@@ -1,4 +1,11 @@
 {
+    "version": 2,
+    "routes": [
+      {
+        "src": "/api/comments",
+        "dest": "src/server/server.js"
+      }
+    ],
     "headers": [
       {
         "source": "/api/comments",
@@ -11,4 +18,5 @@
       }
     ]
   }
+  
   
