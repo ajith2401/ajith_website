@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import WritingDetailsComponent from './Cardpage';
 
 const WritingsComponent = ({ writings }) => {
   const [categoryFilter, setCategoryFilter] = useState('');
-  const [dateFilter, setDateFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [showFullContent, setShowFullContent] = useState(Array(writings.length).fill(false));
   const [visibleCards, setVisibleCards] = useState(24);
@@ -74,39 +76,42 @@ const WritingsComponent = ({ writings }) => {
   return (
     <div className="intro text-center section-padding color-bg" id="about">
       <h2>Writings</h2>
-      <div>
-        <label>
-          Category:
-          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-            <option value="">All</option>
-            <option value="short story">Short Story</option>
-            <option value="poem">Poem</option>
-            <option value="article">Article</option>
-            <option value="philosophy">Philosophy</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Published Date:
-          <input
-            type="text"
-            value={dateFilter}
-            onChange={(e) => setDateFilter(e.target.value)}
-            placeholder="MM/DD/YYYY"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Search:
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            placeholder="Enter text to search"
-          />
-        </label>
+      <div className="filter-section">
+        <div className="filter-item">
+          <label>
+            Category:
+            <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+              <option value="">All</option>
+              <option value="short story">Short Story</option>
+              <option value="poem">Poem</option>
+              <option value="article">Article</option>
+              <option value="philosophy">Philosophy</option>
+            </select>
+          </label>
+        </div>
+        <div className="filter-item">
+          <label>
+            Published Date:
+            <DatePicker
+              selected={dateFilter}
+              onChange={(date) => setDateFilter(date)}
+              dateFormat="MM/dd/yyyy"
+              placeholderText="MM/DD/YYYY"
+              isClearable
+            />
+          </label>
+        </div>
+        <div className="filter-item">
+          <label>
+            Search:
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Enter text to search"
+            />
+          </label>
+        </div>
       </div>
       <hr />
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
