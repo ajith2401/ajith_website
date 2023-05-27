@@ -48,7 +48,7 @@ const WritingDetailsComponent = ({ writings }) => {
     };
   
     // Make an API request to the server-side endpoint
-    axios.post('https://ajith-website.vercel.app/api/comments', newComment)
+    axios.post('https://kuralbot.pythonanywhere.com/api/comments', newComment)
       .then((response) => {
         console.log('Comment stored:', response.data);
         setName('');
