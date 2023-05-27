@@ -130,20 +130,23 @@ const WritingDetailsComponent = ({ writings }) => {
       </div>
 
       <div className="comments-section">
-        <h2>Comments</h2>
-        {error && <div>{error}</div>}
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <div key={comment.id}>
-              <h4>{comment.name}</h4>
-              <p>{comment.content}</p>
-              <p>{comment.date}</p>
-            </div>
-          ))
-        ) : (
-          <div>No comments available</div>
-        )}
+      <h2>Comments</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      {comments.length > 0 ? (
+        comments.map((comment) => (
+          <div className="card mb-3" key={comment.id}>
+        <div className="card-body">
+          <h4 className="card-title">{comment.name}</h4>
+          <p className="card-text">{comment.content}</p>
+          <p className="card-text"><small className="text-muted">{comment.date}</small></p>
+        </div>
       </div>
+    ))
+  ) : (
+    <div className="alert alert-info">No comments available</div>
+  )}
+</div>
+
 
       <Link to="/writing">Back to Writings</Link>
     </div>

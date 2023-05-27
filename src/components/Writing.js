@@ -5,10 +5,11 @@ import WritingDetailsComponent from './Cardpage';
 const WritingsComponent = ({ writings }) => {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [dateFilter, setDateFilter] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [showFullContent, setShowFullContent] = useState(Array(writings.length).fill(false));
   const [visibleCards, setVisibleCards] = useState(24);
 
-  // Filtered writings based on category and published date
+  // Filtered writings based on category, published date, and search text
   const filteredWritings = writings
     .filter((writing) => {
       if (categoryFilter && writing.category !== categoryFilter) {
@@ -22,6 +23,18 @@ const WritingsComponent = ({ writings }) => {
           writingDate.getDate() !== filterDate.getDate() ||
           writingDate.getMonth() !== filterDate.getMonth() ||
           writingDate.getFullYear() !== filterDate.getFullYear()
+        ) {
+          return false;
+        }
+      }
+
+      if (searchText) {
+        const lowerCaseSearchText = searchText.toLowerCase();
+        const lowerCaseTitle = writing.title.toLowerCase();
+        const lowerCaseContent = writing.content_body.toLowerCase();
+        if (
+          !lowerCaseTitle.includes(lowerCaseSearchText) &&
+          !lowerCaseContent.includes(lowerCaseSearchText)
         ) {
           return false;
         }
@@ -48,6 +61,7 @@ const WritingsComponent = ({ writings }) => {
     const truncatedLines = lines.slice(0, maxLines);
     return truncatedLines.join('\n');
   };
+
   const renderContent = (content) => {
     const lines = content.split('\n');
     return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
@@ -80,6 +94,17 @@ const WritingsComponent = ({ writings }) => {
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
             placeholder="MM/DD/YYYY"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Search:
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Enter text to search"
           />
         </label>
       </div>
