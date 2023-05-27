@@ -4,11 +4,17 @@ const fs = require('fs');
 const express = require('express');
 
 const app = express();
+
+// Enable CORS middleware
 app.use(cors());
 
 app.use(express.json());
 
+// Handle OPTIONS request for preflight CORS check
+app.options('/api/comments', cors());
+
 app.post('/api/comments', (req, res) => {
+
   const { name, mail_id, content, date, writingId, writingTitle } = req.body;
 
   const newComment = {
