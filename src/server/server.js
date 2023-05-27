@@ -1,22 +1,11 @@
-const axios = require('axios');
-const cors = require('cors');
 const fs = require('fs');
 const express = require('express');
 
 const app = express();
-
-// Enable CORS middleware
-app.use(cors());
-
 app.use(express.json());
 
-// Handle OPTIONS request for preflight CORS check
-app.options('/api/comments', cors());
-
 app.post('/api/comments', (req, res) => {
-
   const { name, mail_id, content, date, writingId, writingTitle } = req.body;
-
   const newComment = {
     name: name,
     mail_id: mail_id,
@@ -33,6 +22,8 @@ app.post('/api/comments', (req, res) => {
     comments = JSON.parse(data);
   } catch (err) {
     console.error('Error reading comments file:', err);
+    res.status(500).json({ message: 'Error reading comments file' });
+    return;
   }
 
   // Add the new comment to the array
@@ -42,12 +33,11 @@ app.post('/api/comments', (req, res) => {
   try {
     const jsonData = JSON.stringify(comments);
     fs.writeFileSync('comments.json', jsonData, 'utf8');
+    res.status(200).json({ message: 'Comment stored', comment: newComment });
   } catch (err) {
     console.error('Error writing comments file:', err);
+    res.status(500).json({ message: 'Error writing comments file' });
   }
-
-  // Send a response to the client
-  res.status(200).json({ message: 'Comment stored', comment: newComment });
 });
 
 module.exports = app;
