@@ -107,6 +107,7 @@ const WritingsComponent = ({ writings }) => {
               <option value="poem">Poem</option>
               <option value="article">Article</option>
               <option value="philosophy">Philosophy</option>
+              <option value="short writings">short writngs</option>
             </select>
           </label>
         </div>
@@ -125,12 +126,20 @@ const WritingsComponent = ({ writings }) => {
         <div className="filter-item">
           <label>
             Search:
-            <input
-              type="text"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Enter text to search"
-            />
+            <div className="search-wrapper">
+              <input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Enter text to search"
+                className="search-input"
+              />
+              {searchText && (
+                <button className="undo-button" onClick={() => setSearchText('')}>
+                  Undo
+                </button>
+              )}
+            </div>
           </label>
         </div>
       </div>

@@ -97,75 +97,6 @@ body {
   padding: 40px,0;
 }
 
-#Home {
-  min-height: 90vh;
-  background: #dbf2fb;
-  padding: 10px;
-}
-
-#name {
-  font-size: 100px;
-}
-
-#name_img {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
-}
-
-#image_aji{
-  max-width: 130%;
-  height: auto;
-}
-
-/* Responsive Styles */
-
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575px) {
-  #name_img {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  #name {
-    font-size: 40px;
-    margin-top: 20px;
-  }
-  
-  #image_aji{
-    max-width: 100%;
-  }
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  #name {
-    font-size: 60px;
-  }
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  #name {
-    font-size: 80px;
-  }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  #name {
-    font-size: 100px;
-  }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  #name {
-    font-size: 120px;
-  }
-}
-
-
 #Skills {
   min-height: 90vh;
   background: #fff7f7;
@@ -659,5 +590,104 @@ margin-left: 100px;
   background-color: #ffffff;
   color: rgb(230, 182, 249);
   opacity:0.7;
+}
+
+
+
+
+#Home {
+  min-height: 90vh;
+  background: #dbf2fb;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#name {
+  font-size: 100px;
+}
+
+#about-content {
+  order: 2;
+}
+
+#image_aji {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive Styles */
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+  #name {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  #about-content {
+    order: 1;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  #name {
+    font-size: 60px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #name {
+    font-size: 80px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #Home {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  #about-content {
+    width: 50%;
+    order: 2;
+  }
+
+  #image_aji {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #name {
+    font-size: 100px;
+  }
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-input {
+  padding-right: 50px; /* Adjust this value to accommodate the width of the Undo button */
+}
+
+.undo-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  color: #999;
+  cursor: pointer;
 }
 

@@ -87,7 +87,7 @@ const WritingDetailsComponent = ({ writings }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container" id="card_page">
       <h1>{writing.title}</h1>
       <p className="card-text">
         {renderContent(writing.content_body)}
