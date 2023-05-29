@@ -155,7 +155,7 @@ const WritingsComponent = ({ writings }) => {
                     ? renderContent(writing.content_body)
                     : truncatedContent(writing.content_body)}
                 </p>
-                {writing.content_body.split('\n').length > 4 && (
+                {writing.content_body.split(' ').length > 10 && (
                   <Link
                     to={`/writings/${writing.id}`}
                     className="btn btn-primary"
