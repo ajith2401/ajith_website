@@ -99,7 +99,7 @@ const PortfolioSection = () => {
                   </div>
                   {image.Tech_Stack && image.Tech_Stack.length > 0 && (
                     <div>
-                      <h5 className="mt-3">Tech Stack:</h5>
+                      <h5 className="mt-3">Key Points:</h5>
                       <ul>
                         {image.Tech_Stack.map((tech, i) => (
                           <li key={i}>

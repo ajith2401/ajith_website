@@ -103,11 +103,11 @@ const WritingsComponent = ({ writings }) => {
             Category:
             <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
               <option value="">All</option>
-              <option value="short story">Short Story</option>
-              <option value="poem">Poem</option>
-              <option value="article">Article</option>
-              <option value="philosophy">Philosophy</option>
-              <option value="short writings">short writngs</option>
+              <option value="short story">சிறுகதை-Short Story</option>
+              <option value="poem">கவிதை-Poem</option>
+              <option value="article">கட்டுரை-Article</option>
+              <option value="philosophy">தத்துவம்-Philosophy</option>
+              <option value="short writings">துணுக்குள்-short writings</option>
             </select>
           </label>
         </div>
