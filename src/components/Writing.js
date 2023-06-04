@@ -76,14 +76,14 @@ const WritingsComponent = ({ writings }) => {
   };
 
   const truncatedContent = (content) => {
-    const maxLines = 4;
-    const lines = content.split('\n');
+    const maxLines = 5;
+    const lines = content.split(' ');
     const truncatedLines = lines.slice(0, maxLines);
-    return truncatedLines.join('\n');
+    return truncatedLines.join(' ');
   };
 
   const renderContent = (content) => {
-    const lines = content.split('\n');
+    const lines = content.split(' ');
     return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
   };
 
@@ -155,7 +155,7 @@ const WritingsComponent = ({ writings }) => {
                     ? renderContent(writing.content_body)
                     : truncatedContent(writing.content_body)}
                 </p>
-                {writing.content_body.split('\n').length > 2 && (
+                {writing.content_body.split(' ').length > 5 && (
                   <Link
                     to={`/writings/${writing.id}`}
                     className="btn btn-primary"

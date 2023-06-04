@@ -691,3 +691,9 @@ margin-left: 100px;
   color: #999;
   cursor: pointer;
 }
+
+#card_page{
+  min-height: 90vh;
+  background: #d1eaf9;
+  padding: 10px;
+}
