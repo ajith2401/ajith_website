@@ -39,10 +39,23 @@ const WritingDetailsComponent = ({ writings }) => {
   }
 
   const renderContent = (content) => {
-    const lines = content.split('\n');
-    return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
+    if (Array.isArray(content)) {
+      return content.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    } else {
+      const lines = content.split('\n');
+      return lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    }
   };
-
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
