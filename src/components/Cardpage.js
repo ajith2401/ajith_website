@@ -37,16 +37,15 @@ const WritingDetailsComponent = ({ writings }) => {
   if (!writing) {
     return <div>Writing not found</div>;
   }
-
-   const renderContent = (content) => {
+  const renderContent = (content) => {
     if (Array.isArray(content)) {
       return content.map((line, index) => (
         <React.Fragment key={index}>
-          {line}
+          {line && line.toString()}
           <br />
         </React.Fragment>
       ));
-    } else {
+    } else if (typeof content === 'string' || content instanceof String) {
       const lines = content.split('\n');
       return lines.map((line, index) => (
         <React.Fragment key={index}>
@@ -54,6 +53,9 @@ const WritingDetailsComponent = ({ writings }) => {
           <br />
         </React.Fragment>
       ));
+    } else {
+      // Handle other cases if needed
+      return null;
     }
   };
 
