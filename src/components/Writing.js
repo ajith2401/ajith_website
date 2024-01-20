@@ -77,14 +77,38 @@ const WritingsComponent = ({ writings }) => {
 
   const truncatedContent = (content) => {
     const maxLines = 5;
-    const lines = content.split(' ');
+    let lines
+    if (typeof content === 'string'){
+       lines = content.split(' ');
+    }
+    if (Array.isArray(content)){
+       lines = content.slice(0, maxLines);
+    }
+    
     const truncatedLines = lines.slice(0, maxLines);
     return truncatedLines.join(' ');
   };
 
   const renderContent = (content) => {
-    const lines = content.split(' ');
-    return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
+    if (Array.isArray(content)) {
+      return content.map((line, index) => (
+        <React.Fragment key={index}>
+          {line && line.toString()}
+          <br />
+        </React.Fragment>
+      ));
+    } else if (typeof content === 'string' || content instanceof String) {
+      const lines = content.split('\n');
+      return lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    } else {
+      // Handle other cases if needed
+      return null;
+    }
   };
 
   const loadMore = () => {
@@ -155,15 +179,21 @@ const WritingsComponent = ({ writings }) => {
                     ? renderContent(writing.content_body)
                     : truncatedContent(writing.content_body)}
                 </p>
-                {writing.content_body.split(' ').length > 5 && (
-                  <Link
-                    to={`/writings/${writing.id}`}
-                    className="btn btn-primary"
-                    onClick={() => toggleContent(writing.id)}
-                  >
-                    {showFullContent[writing.id] ? 'Read Less' : 'Read More'}
-                  </Link>
-                )}
+                {
+                  (Array.isArray(writing.content_body)
+                    ? writing.content_body.join(' ').split(' ').length
+                    : writing.content_body.split(' ').length
+                  ) > 5 && (
+                    <Link
+                      to={`/writings/${writing.id}`}
+                      className="btn btn-primary"
+                      onClick={() => toggleContent(writing.id)}
+                    >
+                      {showFullContent[writing.id] ? 'Read Less' : 'Read More'}
+                    </Link>
+                  )
+                }
+                
               </div>
               <img src={writing.image_src} alt={writing.title} className="card-img-top" />
               <div className="card-footer">
