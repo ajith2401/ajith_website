@@ -12,6 +12,7 @@ const WritingDetailsComponent = ({ writings }) => {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState('');
 
+  
   const fetchComments = async () => {
     try {
       const response = await axios.post('https://kuralbot.pythonanywhere.com/api/get_comments', {
