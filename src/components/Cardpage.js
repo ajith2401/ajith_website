@@ -38,9 +38,23 @@ const WritingDetailsComponent = ({ writings }) => {
     return <div>Writing not found</div>;
   }
 
-  const renderContent = (content) => {
-    const lines = content.split('\n');
-    return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
+   const renderContent = (content) => {
+    if (Array.isArray(content)) {
+      return content.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    } else {
+      const lines = content.split('\n');
+      return lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    }
   };
 
   const handleNameChange = (event) => {
