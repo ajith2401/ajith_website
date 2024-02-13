@@ -91,8 +91,7 @@ const WritingsComponent = ({ writings }) => {
     if (Array.isArray(content)){
        lines = content.slice(0, maxLines);
     }
-    
-    let lines
+
     if (typeof content === 'string'){
        lines = content.split(' ');
     }
