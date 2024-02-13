@@ -92,11 +92,38 @@ const WritingsComponent = ({ writings }) => {
        lines = content.slice(0, maxLines);
     }
     
+    let lines
+    if (typeof content === 'string'){
+       lines = content.split(' ');
+    }
+    if (Array.isArray(content)){
+       lines = content.slice(0, maxLines);
+    }
+    
     const truncatedLines = lines.slice(0, maxLines);
     return truncatedLines.join(' ');
   };
 
   const renderContent = (content) => {
+    if (Array.isArray(content)) {
+      return content.map((line, index) => (
+        <React.Fragment key={index}>
+          {line && line.toString()}
+          <br />
+        </React.Fragment>
+      ));
+    } else if (typeof content === 'string' || content instanceof String) {
+      const lines = content.split('\n');
+      return lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    } else {
+      // Handle other cases if needed
+      return null;
+    }
     if (Array.isArray(content)) {
       return content.map((line, index) => (
         <React.Fragment key={index}>
