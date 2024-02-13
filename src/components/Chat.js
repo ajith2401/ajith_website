@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ChatW from '../chat_w2.png'
+import { useMediaQuery } from "@mui/material";
+import {  IconButton, TextField, Paper, Typography, Button } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
 function ChatWidget() {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [animateText, setAnimateText] = useState(false);
@@ -68,35 +72,37 @@ function ChatWidget() {
   }
 
   return (
-    <div className="chat-widget">
-      {!isOpen && (
-      <>
-      <img src={ChatW} className="open-chat-button" onClick={handleOpenChat} alt="Chat" />
-      <span className={`button-text${animateText ? ' animate' : ''}`}>Ask something</span>
-    </>
-      )}
-      {isOpen && (
-        <div className="chat-window">
-          <div className="chat-header">
-            <h4>Chat</h4>
-            <button className="close-chat-button" onClick={handleCloseChat}>Close</button>
-          </div>
-          <div className="chat-messages">
-            {messages.map((message, index) => (
-              <div key={index} className={`chat-message${message.isBot ? ' bot-message' : ' user-message'}`}>
-                <span className="chat-message-text">{message.text}</span>
-                <span className="chat-message-time small-text">{message.time}</span>
-              </div>
-            ))}
-          </div>
-          <form className="chat-input" onSubmit={getBotResponse}>
-            <input type="text" name="msg" placeholder="Type your message..." />
-            <button type="submit">Send</button>
-          </form>
-        </div>
-      )}
-    </div>
-  );
-}
+      <div>
+        {!isOpen && (
+          <>
+          <IconButton onClick={handleOpenChat} style={{ position: 'fixed', bottom: 20, right: 5, zIndex: 1000, fontSize: '1.5rem' }}>
+          <img src={ChatW} width={isNonMobileScreens ? '100px' : '70px'} alt="Chat" />
+        </IconButton>
+            
+          </>
+        )}
+        {isOpen && (
+          <Paper style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 1000, width: 300 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px', backgroundColor: '#007bff', color: '#fff', borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }}>
+              <Typography variant="h6">Chat</Typography>
+              <Button className="close-chat-button" onClick={handleCloseChat} style={{ backgroundColor: 'transparent', color: '#fff', fontSize: '1.2rem' }}>Close</Button>
+            </div>
+            <div style={{ height: '200px', overflowY: 'scroll', padding: '10px' }}>
+              {messages.map((message, index) => (
+                <div key={index} style={{ marginBottom: '10px', padding: '10px', borderRadius: '5px', backgroundColor: message.isBot ? '#bebebe' : '#f2f2f2' }}>
+                  <span>{message.text}</span>
+                  <span style={{ fontSize: '0.8rem' }}>{message.time}</span>
+                </div>
+              ))}
+            </div>
+            <form onSubmit={getBotResponse} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px', borderTop: '1px solid #ccc' }}>
+              <TextField type="text" name="msg" placeholder="Type your message..." fullWidth />
+              <Button type="submit" variant="contained" color="primary" endIcon={<SendIcon />}>Send</Button>
+            </form>
+          </Paper>
+        )}
+      </div>
+    );
+  }
 
 export default ChatWidget;

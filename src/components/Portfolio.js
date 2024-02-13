@@ -1,6 +1,17 @@
 import React from "react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Button,
+  List,
+  ListItem,
+  Link,
+} from "@mui/material";
+import Carousel from "react-material-ui-carousel";
 
 const PortfolioSection = () => {
   const images = [
@@ -62,72 +73,86 @@ const PortfolioSection = () => {
   ];
 
   return (
-    <section id="portfolio">
-    <div className="container mt-3">
-      <h1 className="text-center">Works</h1>
-      <div className="row">
+    <Container id="portfolio" className="mt-3">
+      <Typography variant="h1" align="center">
+        Works
+      </Typography>
+      <Grid container spacing={4}>
         {images.map((image, index) => (
-          <div key={index} className="col-lg-6 mt-4 box-border" >
-            <div className="card portfolioContent" style={{ height: "100%" }}>
+          <Grid item key={index} xs={12} md={6} className="mt-4">
+            <Card style={{ height: "100%" }} className="portfolioContent">
               {Array.isArray(image.src) ? (
                 <Carousel showThumbs={false} autoPlay infiniteLoop>
                   {image.src.map((src, i) => (
                     <div key={i}>
-                      <img src={src} alt={`Slide ${i + 1}`} />
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={src}
+                        alt={`Slide ${i + 1}`}
+                      />
                     </div>
                   ))}
                 </Carousel>
               ) : (
-                <img src={image.src} alt="Image" />
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={image.src}
+                  alt="Image"
+                />
               )}
-              <div className="card-body">
-                  <h4 className="card-title text-center">{image.title}</h4>
-                  <ul className="card-text">
-                    {image.ache_desc.map((desc, i) => (
-                      <li key={i}>{desc}</li>
-                    ))}
-                  </ul>
-                  <div className="text-center">
-                    <a
-                      href={image.achievement_link}
-                      className="btn btn-success"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Link
-                    </a>
-                  </div>
-                  {image.Tech_Stack && image.Tech_Stack.length > 0 && (
-                    <div>
-                      <h5 className="mt-3">Key Points:</h5>
-                      <ul>
-                        {image.Tech_Stack.map((tech, i) => (
-                          <li key={i}>
-                            {tech}
-                            {image.tech_link && image.tech_link[i] && (
-                              <a
-                                href={image.tech_link[i]}
-                                className="ml-2"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                (Learn more)
-                              </a>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+              <CardContent>
+                <Typography variant="h4" align="center">
+                  {image.title}
+                </Typography>
+                <List>
+                  {image.ache_desc.map((desc, i) => (
+                    <ListItem key={i}>{desc}</ListItem>
+                  ))}
+                </List>
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    href={image.achievement_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Link
+                  </Button>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+                {image.Tech_Stack && image.Tech_Stack.length > 0 && (
+                  <div>
+                    <Typography variant="h5" className="mt-3">
+                      Key Points:
+                    </Typography>
+                    <List>
+                      {image.Tech_Stack.map((tech, i) => (
+                        <ListItem key={i}>
+                          {tech}
+                          {image.tech_link && image.tech_link[i] && (
+                            <Link
+                              href={image.tech_link[i]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ml-2"
+                            >
+                              (Learn more)
+                            </Link>
+                          )}
+                        </ListItem>
+                      ))}
+                    </List>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
-};
+}
 
 export default PortfolioSection;
-// /Users/ajithkumarr/Desktop/ajith_website/src/App.js

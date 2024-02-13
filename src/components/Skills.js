@@ -1,6 +1,8 @@
 import React from "react";
+import { useMediaQuery } from "@mui/material";
 
 function Skills() {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const skills = [
     "HTML",
     "CSS",

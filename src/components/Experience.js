@@ -1,6 +1,17 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
+import { useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Container,
+  CardContent,
+  Typography,
+  List,
+  ListItem,
+  Button,
+} from "@mui/material";
+import WidgetWrapper from './Widget';
 function Experience() {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const experience = [
     {
       title: "FULL STACK DEVELOPER",
@@ -27,48 +38,56 @@ function Experience() {
       techStack : [ "HTML", "CSS", "JavaScript", "Python"]
     },
   ];
-
+  const experienceRef = useRef(null);
   return (
-    <div className="section container-fluid" id="experience">
-      <div className="text-body-loading">
-       <div className="waviy-loading">
-         <h1>Experience</h1> 
-          </div>
-  </div>
-  <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-  {experience.map((exp, index) => (
-    <div className="col" key={index}>
-      <div className="card h-100">
-        <div className="card-body">
-          <h3 className="card-title">{exp.title}</h3>
-          <h5 className="card-subtitle mb-2 text-muted">{exp.company}</h5>
-          <p className="card-text">{exp.desc}</p>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item"><strong>Date:</strong> {exp.date}</li>
-            <li className="list-group-item">
-              <strong>Tech Stack:</strong>
-              <div className="tech-stack-container">
-                {exp.techStack.map((item, i) => (
-                  <button 
-                    className="btn btn-tech-stack" 
-                    key={i}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
-
-
-    </div>
+    <Container id="experience" className="mt-3">
+    <Box >
+      <Box>
+          <Typography variant="h1" textAlign={'center'}>Experience</Typography>
+      </Box>
+      <Box className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {experience.map((exp, index) => (
+          <Box className="col" key={index}>
+            <WidgetWrapper className="h-100">
+              <CardContent>
+                <Typography variant="h5" gutterBottom>
+                  {exp.title}
+                </Typography>
+                <Typography variant="subtitle2" color="textSecondary" gutterBottom>
+                  {exp.company}
+                </Typography>
+                <Typography variant="body1" component="p">
+                  {exp.desc}
+                </Typography>
+                <List>
+                  <ListItem>
+                    <strong>Date:</strong> {exp.date}
+                  </ListItem>
+                  <ListItem>
+                    <strong>Tech Stack:</strong>
+                    <Box className="tech-stack-container">
+                      {exp.techStack.map((item, i) => (
+                        <Button
+                          key={i}
+                          className="btn btn-tech-stack"
+                          variant="outlined"
+                          size="small"
+                        >
+                          {item}
+                        </Button>
+                      ))}
+                    </Box>
+                  </ListItem>
+                </List>
+              </CardContent>
+            </WidgetWrapper>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+    </Container>
   );
-}
+};
 
 export default Experience;
 

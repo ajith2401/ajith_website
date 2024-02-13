@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import FlexBetween from  "../Utils/FlexBetween"
+import { Container, Link as MuiLink } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom'; 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import WritingDetailsComponent from './Cardpage';
+import { useMediaQuery } from "@mui/material";
+import { Typography, Select, MenuItem, TextField, Button, Card, CardContent, CardMedia } from '@mui/material';
+import WidgetWrapper from './Widget';
+
 
 const WritingsComponent = ({ writings }) => {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const [categoryFilter, setCategoryFilter] = useState('');
   const [dateFilter, setDateFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -77,14 +84,38 @@ const WritingsComponent = ({ writings }) => {
 
   const truncatedContent = (content) => {
     const maxLines = 5;
-    const lines = content.split(' ');
+    let lines
+    if (typeof content === 'string'){
+       lines = content.split(' ');
+    }
+    if (Array.isArray(content)){
+       lines = content.slice(0, maxLines);
+    }
+    
     const truncatedLines = lines.slice(0, maxLines);
     return truncatedLines.join(' ');
   };
 
   const renderContent = (content) => {
-    const lines = content.split(' ');
-    return lines.map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>);
+    if (Array.isArray(content)) {
+      return content.map((line, index) => (
+        <React.Fragment key={index}>
+          {line && line.toString()}
+          <br />
+        </React.Fragment>
+      ));
+    } else if (typeof content === 'string' || content instanceof String) {
+      const lines = content.split('\n');
+      return lines.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+    } else {
+      // Handle other cases if needed
+      return null;
+    }
   };
 
   const loadMore = () => {
@@ -92,94 +123,98 @@ const WritingsComponent = ({ writings }) => {
   };
 
   return (
+    <Container>
     <div className="intro text-center section-padding color-bg" id="about">
-      <h2>Writings</h2>
-      <div className="disclaimer-content">
-        <p className="alert alert-info">{content[contentIndex][contentLanguage]}</p>
+    <Typography variant="h2">Writings</Typography>
+    <FlexBetween className="disclaimer-content">
+      <Typography className="alert alert-info">{content[contentIndex][contentLanguage]}</Typography>
+    </FlexBetween>
+    <div className="filter-section">
+      <div className="filter-item">
+        <label>
+          Category:
+          <Select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="short story">சிறுகதை-Short Story</MenuItem>
+            <MenuItem value="poem">கவிதை-Poem</MenuItem>
+            <MenuItem value="article">கட்டுரை-Article</MenuItem>
+            <MenuItem value="philosophy">தத்துவம்-Philosophy</MenuItem>
+            <MenuItem value="short writings">துணுக்குள்-short writings</MenuItem>
+          </Select>
+        </label>
       </div>
-      <div className="filter-section">
-        <div className="filter-item">
-          <label>
-            Category:
-            <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
-              <option value="">All</option>
-              <option value="short story">சிறுகதை-Short Story</option>
-              <option value="poem">கவிதை-Poem</option>
-              <option value="article">கட்டுரை-Article</option>
-              <option value="philosophy">தத்துவம்-Philosophy</option>
-              <option value="short writings">துணுக்குள்-short writings</option>
-            </select>
-          </label>
-        </div>
-        <div className="filter-item">
-          <label>
-            Published Date:
-            <DatePicker
-              selected={dateFilter}
-              onChange={(date) => setDateFilter(date)}
-              dateFormat="MM/dd/yyyy"
-              placeholderText="MM/DD/YYYY"
-              isClearable
+      <div className="filter-item">
+        <label>
+          Published Date:
+          <DatePicker
+            selected={dateFilter}
+            onChange={(date) => setDateFilter(date)}
+            dateFormat="MM/dd/yyyy"
+            placeholderText="MM/DD/YYYY"
+            isClearable
+          />
+        </label>
+      </div>
+      <div className="filter-item">
+        <label>
+          Search:
+          <div className="search-wrapper">
+            <TextField
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Enter text to search"
+              className="search-input"
             />
-          </label>
-        </div>
-        <div className="filter-item">
-          <label>
-            Search:
-            <div className="search-wrapper">
-              <input
-                type="text"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                placeholder="Enter text to search"
-                className="search-input"
-              />
-              {searchText && (
-                <button className="undo-button" onClick={() => setSearchText('')}>
-                  Undo
-                </button>
-              )}
-            </div>
-          </label>
-        </div>
-      </div>
-      <hr />
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {filteredWritings.slice(0, visibleCards).map((writing) => (
-          <div className="col" key={writing.id}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h3 className="card-title">{writing.title}</h3>
-                <p className="card-text">
-                  {showFullContent[writing.id]
-                    ? renderContent(writing.content_body)
-                    : truncatedContent(writing.content_body)}
-                </p>
-                {writing.content_body.split(' ').length > 5 && (
-                  <Link
-                    to={`/writings/${writing.id}`}
-                    className="btn btn-primary"
-                    onClick={() => toggleContent(writing.id)}
-                  >
-                    {showFullContent[writing.id] ? 'Read Less' : 'Read More'}
-                  </Link>
-                )}
-              </div>
-              <img src={writing.image_src} alt={writing.title} className="card-img-top" />
-              <div className="card-footer">
-                <p>Published Date: {writing.published_date}</p>
-              </div>
-            </div>
+            {searchText && (
+              <Button className="undo-button" onClick={() => setSearchText('')}>
+                Undo
+              </Button>
+            )}
           </div>
-        ))}
+        </label>
       </div>
-      {filteredWritings.length > visibleCards && (
-        <button className="btn btn-primary mt-3" onClick={loadMore}>
-          Load More
-        </button>
-      )}
     </div>
-  );
+    <hr />
+    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {filteredWritings.slice(0, visibleCards).map((writing) => (
+        <div className="col" key={writing.id}>
+          <Card className="h-100">
+            <CardMedia component="img" alt={writing.title} height="140" image={writing.image_src} />
+            <CardContent>
+              <Typography variant="h6">{writing.title}</Typography>
+              <Typography>
+                {showFullContent[writing.id]
+                  ? renderContent(writing.content_body)
+                  : truncatedContent(writing.content_body)}
+              </Typography>
+            </CardContent>
+            {writing.content_body.length > 5 && (
+              <MuiLink
+              component={RouterLink}
+              to={`/writings/${writing.id}`} // Specify the target route
+              className="btn btn-primary"
+              onClick={() => {
+                toggleContent(writing.id);
+              }}
+            >
+              {showFullContent[writing.id] ? 'Read Less' : 'Read More'}
+            </MuiLink>
+            )}
+          </Card>
+        </div>
+      ))}
+    </div>
+    {filteredWritings.length > visibleCards && (
+      <Button variant="contained" color="primary" className="btn btn-primary mt-3" onClick={loadMore}>
+        Load More
+      </Button>
+    )}
+  </div>
+  </Container>
+);
 };
+
+
 
 export default WritingsComponent;

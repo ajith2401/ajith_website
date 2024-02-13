@@ -1,6 +1,17 @@
 import React from "react";
-
-
+import {
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  List,
+  ListItem,
+  Divider,
+  Box,
+} from "@mui/material";
+import WidgetWrapper from "./Widget";
 function Achievements() {
   const achievements = [
     {
@@ -37,55 +48,59 @@ function Achievements() {
   ];
 
   return (
-    <div className="section container-fluid mt-3" id="Achievements">
-     <div className="text-body-loading">
-       <div className="waviy-loading">
-          <span style={{ "--i": 1 }}>A</span>
-          <span style={{ "--i": 2 }}>C</span>
-          <span style={{ "--i": 3 }}>H</span>
-          <span style={{ "--i": 4 }}>I</span>
-          <span style={{ "--i": 5 }}>V</span>
-          <span style={{ "--i": 6 }}>E</span> 
-          <span style={{ "--i": 7 }}>M</span> 
-          <span style={{ "--i": 8 }}>E</span>
-          <span style={{ "--i": 9 }}>N</span> 
-          <span style={{ "--i": 10 }}>T</span> 
-          <span style={{ "--i": 10 }}>S</span> 
-          </div>
-  </div>
-  <div className="container-fluid">
-  <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    {achievements.map((achievement, index) => (
-      <div className="col mb-4" key={index}>
-        <div className="card h-100">
-          <div className="card-body">
-            <h3 className="card-title">{achievement.title}</h3>
-            <hr className="mb-3" />
-            <div className="desc-wrapper">
-              <ul className="list-unstyled">
-                {achievement.ache_desc.map((item, index) => (
-                  <li className="mb-2" key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="tech-stack-wrapper mb-3">
-              <ul className="list-inline">
-                {achievement.Tech_Stack.map((item, index) => (
-                  <li className="list-inline-item me-3" key={index}>
-                    <button className="btn btn-secondary" onClick={() => window.open(achievement.tech_link && achievement.tech_link.length > index ? achievement.tech_link[index] : '#', '_blank')}>
-                      {item}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
-    </div>
+    <Container className="section mt-3" id="achievements">
+      <Typography variant="h1" className="text-center">
+        Achievements
+      </Typography>
+      <Container>
+      <Box className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {achievements.map((achievement, index) => (
+            <Box className="col" key={index}>
+            <WidgetWrapper className="h-100">
+                <CardContent>
+                  <Typography variant="h5" component="div" gutterBottom>
+                    {achievement.title}
+                  </Typography>
+                  <Divider mb={3} />
+                  <div className="desc-wrapper">
+                    <List>
+                      {achievement.ache_desc.map((item, index) => (
+                        <ListItem key={index} className="mb-2">
+                          {item}
+                        </ListItem>
+                      ))}
+                    </List>
+                  </div>
+                  <div className="tech-stack-wrapper mb-3">
+                    <List className="list-inline">
+                      {achievement.Tech_Stack.map((item, index) => (
+                        <ListItem key={index} className="list-inline-item me-3">
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() =>
+                              window.open(
+                                achievement.tech_link &&
+                                  achievement.tech_link.length > index
+                                  ? achievement.tech_link[index]
+                                  : "#",
+                                "_blank"
+                              )
+                            }
+                          >
+                            {item}
+                          </Button>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </div>
+                </CardContent>
+              </WidgetWrapper>
+            </Box>
+          ))}
+        </Box>
+      </Container>
+    </Container>
   );
 }
 
