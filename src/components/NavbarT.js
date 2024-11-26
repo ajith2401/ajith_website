@@ -15,9 +15,6 @@ import { useDispatch } from "react-redux";
 import { setMode} from '../redux/user/userSlice.js'
 import { Link, useNavigate } from 'react-router-dom';
 import FlexBetween from "../Utils/FlexBetween.js";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-import WidgetWrapper from "./Widget.js";
-
 
 
 const Navbar = () => {
@@ -31,14 +28,13 @@ const Navbar = () => {
   const alt = theme.palette.background.alt;
 
   return (
-  
           <>
         {isNonMobileScreens && (
           <FlexBetween gap="1.75rem" padding="1rem 6%" backgroundColor={alt} >
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: 'None' }}>
           <a
             href="#Home"
-            style={{ textDecoration: 'none' }} // Set textDecoration to none
+            style={{ textDecoration: 'None' }} // Set textDecoration to none
           >
             <Typography
               fontWeight="bold"
@@ -54,12 +50,18 @@ const Navbar = () => {
               Home
             </Typography>
           </a>
-        </Link>
-          <a href="#experience">
+          </Link>
+          
+          <a href="#experience" style={{ textDecoration: 'None' }}>
           <Typography
             fontWeight="bold"
             fontSize="clamp(1rem, 2rem, 2.25rem)"
             color="primary"
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                navigate("/");
+              }
+            }}
             sx={{
               "&:hover": {
                 color: primaryLight,
@@ -70,41 +72,50 @@ const Navbar = () => {
             Experience
           </Typography>
           </a>
+
+          <a href="#portfolio" style={{ textDecoration: 'None' }}>
+          <Typography
+            fontWeight="bold"
+            fontSize="clamp(1rem, 2rem, 2.25rem)"
+            color="primary"
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                navigate("/");
+              }
+            }}
+            sx={{
+              "&:hover": {
+                color: primaryLight,
+                cursor: "pointer",
+              },
+            }}
+          >
+          Portfolio
+          </Typography>
+          </a>
+
+          <a href="#achievements" style={{ textDecoration: 'None' }}>
+          <Typography
+            fontWeight="bold"
+            fontSize="clamp(1rem, 2rem, 2.25rem)"
+            color="primary"
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                navigate("/");
+              }
+            }}
+            sx={{
+              "&:hover": {
+                color: primaryLight,
+                cursor: "pointer",
+              },
+            }}
+          >
+          Achievements
+          </Typography>
+          </a>
          
-          <AnchorLink offset={() => 100} href="#portfolio">
-          <Typography
-            fontWeight="bold"
-            fontSize="clamp(1rem, 2rem, 2.25rem)"
-            color="primary"
-            
-            sx={{
-              "&:hover": {
-                color: primaryLight,
-                cursor: "pointer",
-              },
-            }}
-          >
-            Portfolio
-          </Typography>
-          </AnchorLink>
-          <AnchorLink offset={() => 100} href="#achievements">
-          <Typography
-            fontWeight="bold"
-            fontSize="clamp(1rem, 2rem, 2.25rem)"
-            color="primary"
-      
-            sx={{
-              "&:hover": {
-                color: primaryLight,
-                cursor: "pointer",
-              },
-            }}
-          >
-            Achievements
-          </Typography>
-          </AnchorLink>
-
-
+    
           <Typography
             fontWeight="bold"
             fontSize="clamp(1rem, 2rem, 2.25rem)"
@@ -152,9 +163,10 @@ const Navbar = () => {
             alignItems="center"
             gap="1rem"
           >
-          <Link onClick={()=>{navigate('/')} }>
+          <Link to={'/'} >
           Home
           </Link>
+
             <IconButton
             onClick={() => {
               dispatch(setMode());

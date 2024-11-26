@@ -9,11 +9,11 @@ import {
   Button,
   Alert,
 } from '@mui/material';
-import WidgetWrapper from '../components/Widget';
+
 const WritingDetailsComponent = ({ writings }) => {
   const { writingId } = useParams();
   const writing = writings.find((writing) => writing.id.toString() === writingId);
-  const [showFullContent, setShowFullContent] = useState(false);
+  // const [showFullContent, setShowFullContent] = useState(false);
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [comment, setComment] = useState('');

@@ -2,8 +2,6 @@ import React from "react";
 import {
   Container,
   Typography,
-  Grid,
-  Card,
   CardContent,
   Button,
   List,

@@ -17,7 +17,7 @@ import { themeSettings } from './theme.js';
 import { Box, ThemeProvider} from "@mui/material";
 import Achievements from '../src/components/Achivements.js'
 import CssBaseline from '@mui/material/CssBaseline';
-
+import MyComponent from './components/Sathish';
 const writings = writingsData;
 
 const App = () => {
@@ -44,6 +44,11 @@ const App = () => {
           path="/writing"
           element={<WritingsComponent writings={writings} />}
         />
+   {/*  <Route
+        path="/test"
+        element={<MyComponent/>}
+      />*/
+    }    
         <Route
           path="/writings/:writingId"
           element={<WritingDetailsComponent writings={writings} />}

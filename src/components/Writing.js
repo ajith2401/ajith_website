@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import FlexBetween from  "../Utils/FlexBetween"
 import { Container, Link as MuiLink } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom'; 
@@ -7,11 +6,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useMediaQuery } from "@mui/material";
 import { Typography, Select, MenuItem, TextField, Button, Card, CardContent, CardMedia } from '@mui/material';
-import WidgetWrapper from './Widget';
 
 
 const WritingsComponent = ({ writings }) => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  // const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const [categoryFilter, setCategoryFilter] = useState('');
   const [dateFilter, setDateFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
